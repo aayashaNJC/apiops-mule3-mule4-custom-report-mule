@@ -1,0 +1,31 @@
+{
+  "configs": [
+    "custom-migration-report.xml",
+    "global.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:custom-migration-report:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.3.0-20200824",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [
+        "com.jsoupdemo"
+      ],
+      "exportedResources": [
+        "application-types.xml",
+        "config.yaml",
+        "custom-migration-report.xml",
+        "global.xml",
+        "log4j2.xml",
+        "reportTemplate.html"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

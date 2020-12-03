@@ -1,0 +1,38 @@
+sftp:
+  host: "192.168.0.7"
+  port: "22"
+  user: "tester"
+  password: "password"
+  source: "InputFiles"
+  destination: "FileArchive"
+  root: " E:\\FTP_software\\RebexTinySftpServer-Binaries-Latest\\data"
+  
+file:
+  root: "E:\\Mule"
+  source: "InputFile"
+  archive: "ArchiveFile"  
+  destination: "Destination"  
+  customReport: "customReport"
+  destinationFtp: "E:\\FTP_software\\RebexTinySftpServer-Binaries-Latest\\data\\InputFiles"
+
+  
+archive:
+  location: "E:\\FTP_software\\RebexTinySftpServer-Binaries-Latest\\data\\InputFiles"
+  
+localpath:
+  root: "C:\\Users\\aayas\\Desktop\\records"
+  target: "C:\\Users\\aayas\\Desktop\\records\\errorLists.csv"
+  template: "C:\\Users\\aayas\\Desktop\\records\\reportTemplate.html"
+  readFile: "errorLists.csv"
+  newReport: "C:\\Users\\aayas\\Desktop\\customReports\\reportTemplate.html"
+  
+app:
+  location: "E:\\NJCMule_Program\\anyPoint76_Advance\\custom-migration-report\\src\\main\\resources\\reportTemplate.html"
+
+db:
+  host: "localhost"
+  port: "3306"
+  user: " root"
+  password: "admin"
+  database: "muledb"
+    

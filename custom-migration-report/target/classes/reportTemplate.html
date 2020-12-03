@@ -1,0 +1,99 @@
+<html> 
+<head>
+	<title>Mule Migration Assistant Report</title>
+<link ref="icon" type="image/webp" href="https://static.wixstatic.com/media/e53d99_925f5d1798bc46cb902b14dbe62dfdff~mv2.png/v1/fill/w_73,h_99,al_c,q_85,usm_0.66_1.00_0.01/njclogo.webp" sizes="120x120" >
+<style>
+.h-style {
+  border: 2px solid black;
+  margin: 50px;
+  background-color: #0B614B;
+  color:white;
+ text-align: center
+}
+.col-left-margin { margin: 50px;font-weight: bold;}
+.td-col1 {style="width:70%;"}.td-col2 {style="width:30%;"}.hr-line {width: 60%;margin-left: auto;margin-right: auto;}
+.hr-align{ text-align: center; background-color: #85C1E9; padding-top: 15px; padding-right: 30px; padding-bottom: 15px; padding-left: 80px; border: 1px solid black;}
+.normal-text{font-weight: normal;}#report {
+  font-family: Arial, Helvetica,
+  sans-serif;
+  border-collapse: collapse;
+  width: 100%;}
+.column { float: left; width: 33.33%; padding: 5px;}.row::after {content: ""; clear: both; display: table; }#report td, #report th { border: 1px solid #8d8d8d; padding: 8px;}#report th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 5px;  padding-left: 5px;  text-align: left;
+  background-color: #0B614B;
+  color: white;
+}
+#report-issue {
+  font-family: Arial, Helvetica,
+  sans-serif;
+  border-collapse: collapse;
+  width: 100%;}
+#report-issue th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 15px;  padding-left: 15px;  text-align: left;
+  background-color: #F1C40F;
+  color:black;
+}
+#report-issue td { border: 1px; padding: 8px;}.tr-border{ border: 1px solid #ddd; }</style>
+</head>
+ <body> 
+
+<div class="row"><div class="column"><img src="NJC_LOGO.PNG" width="100" height="100" style="vertical-align:middle;margin:0px 50px" ></div><div class="column"><h1>Mule Migration Assistant Report </h1></div> </div>
+<div class="h-style">
+	<h4>Issues found during migration: </h4>
+</div>
+<div class="col-left-margin">
+<table id="report-issue" width: 100%; >
+<tr> <td colspan=2> <h3 class="hr-align">Errors </h3> </td></tr>
+<tr class="tr-border"> 
+<td></td>
+<tr> <td colspan=2> <h3 class="hr-align">Warnings </h3> </td></tr>
+<tr class="tr-border">
+<th class="td-col1" >implementation-experience.xml</th>
+<th class="td-col2" > #Issues</th></tr>
+<tr class="tr-border"> 
+<td>- Expressions that query 'inboundProperties' from the message should instead query the message 'attributes'. Remove this component if there are no uses of 'inboundProperties' in expressions or components that rely on 'inboundProperties' (such as 'copy-properties').</td>
+<td style="text-align:center;">1</td></tr>
+<tr class="tr-border"> 
+<td>- Instead of using outbound properties in the flow, move the expression that sets the property into the XML attribute (such as 'method') of the operation or listener that accepts the expression.</td>
+<td style="text-align:center;">1</td></tr>
+<tr class="tr-border"> 
+<td>- Build the 'query-params' map with a single DataWeave expression.</td>
+<td style="text-align:center;">1</td></tr>
+<tr class="tr-border">
+<th class="td-col1" >mdx-lbs-xapi.xml</th>
+<th class="td-col2" > #Issues</th></tr>
+<tr class="tr-border"> 
+<td>- Expressions that query 'inboundProperties' from the message should instead query the message 'attributes'. Remove this component if there are no uses of 'inboundProperties' in expressions or components that rely on 'inboundProperties' (such as 'copy-properties').</td>
+<td style="text-align:center;">2</td></tr>
+<tr class="tr-border"> 
+<td>- Instead of using outbound properties in the flow, move the expression that sets the property into the XML attribute (such as 'method') of the operation or listener that accepts the expression.</td>
+<td style="text-align:center;">7</td></tr>
+<tr class="tr-border"> 
+<td>- Avoid using an outbound property to determine the status code.</td>
+<td style="text-align:center;">4</td></tr>
+<tr class="tr-border"> 
+<td>- consoleEnabled property do not exist in Mule 4.</td>
+<td style="text-align:center;">1</td></tr>
+<tr> <td colspan=2> <h3 class="hr-align">Info </h3> </td></tr>
+<tr class="tr-border"> 
+<td></td>
+</table>
+</div>
+<div class="col-left-margin"><h3>Estimated Time</h3>
+<table id="report"><tr>
+<th>Complexity </th>
+<th>Estimated time </th>
+<th>Estimated cost </th></tr>
+
+<tr>
+<td>#[payload.migrationComplexity] </td>
+<td>#[payload.timespan] </td>
+<td>#[payload.cost] </td></tr>
+</table>
+</div>
+</body>
+ </html>

@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+	
+	
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="5fb66779-8cd1-4019-b4f3-88d149f65c39" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<file:config name="File_Config_newReport" doc:name="File Config" doc:id="0a73b8c5-90d7-49e1-b3c5-99a46c9cdf6c" >
+		<file:connection workingDir="C:\Users\aayas\Desktop\customReports" />
+	</file:config>
+	<sub-flow name="test-dw-code" doc:id="b3899b1e-9921-4dbd-8b04-e7f8e655a94a" >
+		<ee:transform doc:name="Transform Message" doc:id="3a4bc4ec-9c51-4bc3-85ca-b4a4cf384dff">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+import * from dw::core::Arrays
+//import isWhitespace from dw::core::Strings
+
+output application/json
+
+var input2 = [
+  {
+    "issue": "Errors",
+    "issueNum": "0"
+  },
+  {
+    "issue": "raml-project-implementation.xml",
+    "issueNum": "1"
+  },
+  {
+    "issue": "- Add a suitable JDBC driver dependency for this connection.",
+    "issueNum": "1"
+  },
+  {
+    "issue": "Warnings",
+    "issueNum": "0"
+  },
+  {
+    "issue": "contact-sfdc-api.xml",
+    "issueNum": "14"
+  },
+  {
+    "issue": "- Avoid using an outbound property to determine the status code.",
+    "issueNum": "4"
+  },
+  {
+    "issue": "- Instead of using outbound properties in the flow  move the expression that sets the property into the XML attribute (such as  method ) of the operation or listener that accepts the expression.",
+    "issueNum": "7"
+  },
+  {
+    "issue": "- consoleEnabled property do not exist in Mule 4.",
+    "issueNum": "1"
+  },
+  {
+    "issue": "- Expressions that query  inboundProperties  from the message should instead query the message  attributes . Remove this component if there are no uses of  inboundProperties  in expressions or components that rely on  inboundProperties  (such as  copy-properties ).",
+    "issueNum": "2"
+  },
+  {
+    "issue": "raml-project-implementation.xml",
+    "issueNum": "1"
+  },
+  {
+    "issue": "- Instead of using outbound properties in the flow  move the expression that sets the property into the XML attribute (such as  method ) of the operation or listener that accepts the expression.",
+    "issueNum": "1"
+  },
+  {
+    "issue": "Info",
+    "issueNum": "0"
+  },
+  {
+    "issue": "raml-project-implementation.xml",
+    "issueNum": "1"
+  },
+  {
+    "issue": "- Streaming is enabled by default in Mule 4",
+    "issueNum": "1"
+  }
+]
+var input1 = [
+  {
+    "Issue": "The migration of 'sfdc' is not supported.",
+    "Time": "2"
+  },
+  {
+    "Issue": "Add a suitable JDBC driver dependency for this connection.",
+    "Time": "2"
+  },
+  {
+    "Issue": "The MEL expression could not be migrated to a DataWeave expression.",
+    "Time": "1"
+  },
+  {
+    "Issue": "Instead of using outbound properties in the flow move the expression that sets the property into the XML attribute (such as 'method') of the operation or listener that accepts the expression.",
+    "Time": "1"
+  },
+  {
+    "Issue": "Streaming is enabled by default in Mule 4",
+    "Time": "0"
+  },
+  {
+    "Issue": "Use the inline configuration of the operation instead of relying on properties set before this endpoint.",
+    "Time": "2"
+  },
+  {
+    "Issue": "Make sure the migrated app is allowed to access GMail.",
+    "Time": "1"
+  },
+  {
+    "Issue": "Avoid using an outbound property to determine the status code.",
+    "Time": "1"
+  },
+  {
+    "Issue": "Expressions that query 'inboundProperties' from the message should instead query the message 'attributes'. Remove this component if there are no uses of 'inboundProperties' in expressions or components that rely on 'inboundProperties' (such as 'copyproperties').",
+    "Time": "1"
+  },
+  {
+    "Issue": "Mule 4 does not require transformers anymore. Now that DataWeave is the default expression language most scenarios that required a transformer no longer exist.",
+    "Time": "1"
+  },
+  {
+    "Issue": "Custom types defined in Studio 6 are not migrated to Studio 7.",
+    "Time": "2"
+  },
+  {
+    "Issue": "consoleEnabled property do not exist in Mule 4.",
+    "Time": "3"
+  },
+  {
+    "Issue": "The migration of 'mulerequester' is not supported.",
+    "Time": "2"
+  },
+  {
+    "Issue": "'filetostringtransformer' is not needed in Mule 4 File connector because streams are now repeatable and enabled by default.",
+    "Time": "0"
+  },
+  {
+    "Issue": "'caseSensitive' is not supported in Mule 4 File connector. The case sensitivity is delegated to the file system.",
+    "Time": "0"
+  },
+  {
+    "Issue": "'responseTimeout' was not being used by the file transport.",
+    "Time": "0"
+  },
+  {
+    "Issue": "The migration of 'expressioncomponent' is not supported.",
+    "Time": "1"
+  },
+  {
+    "Issue": "Instead of using session variables in the flow use variables.",
+    "Time": "1"
+  },
+  {
+    "Issue": "Build the 'queryparams' map with a single DataWeave expression.",
+    "Time": "2"
+  },
+  {
+    "Issue": "Springspecific attributes are no longer available. The default behavior cannot be changed in Mule 4.",
+    "Time": "2"
+  },
+  {
+    "Issue": "The MEL expression could not be migrated to a DataWeave expression. 2",
+    "Time": "1"
+  },
+  {
+    "Issue": "The MEL expression contains a method invocation that could not be migrated to a Dataweave expression. 2",
+    "Time": "1"
+  },
+  {
+    "Issue": "consolePath property do not exist in Mule 4.",
+    "Time": "1"
+  },
+  {
+    "Issue": "Instead of setting outbound properties in the flow you must set Mule 4 variables.",
+    "Time": "1"
+  },
+  {
+    "Issue": "The 'flow' element no longer has a 'processingStrategy' attribute.",
+    "Time": "0"
+  },
+  {
+    "Issue": "The migration of 'servicenow' is not supported.",
+    "Time": "1"
+  },
+  {
+    "Issue": "You can remove this if this flow is not using 'sessionVariables' or after migrating them to variables.",
+    "Time": "1"
+  }
+]
+
+//fun getTime(issue) = (vars.csvList[?($.issue == issue)])
+fun getTime(issue) = if ((input1..Issue) contains trim(issue replace "-" with "")) input1.Time[indexOf (input1.Issue, issue)] else null
+---
+input2 map ((object, index) -> {
+	issue: object.issue,
+	number: object.issueNum,
+	time: getTime(object.issue),
+	test: (trim(object.issue replace "-" with "")) 
+ 	//time: if ((object.issue).equals("Errors") || (object.issue).equals("Info")) (time: 0)) else time: getTime(object.issue)//getTime(object.issue) else null
+//time: if (((object.issue).equals("Errors")) || ((object.issue).equals("Info"))) (time: 0)) else time: getTime(object.issue)
+})
+//input2 map (item)->{
+//	"issue": item.issue,
+//	"issueNum": item.issueNum,
+//	(input1 filter ($..Issue contains item.issue) map ((object, index)-> 
+//		{time: object.time}
+//	))
+//}
+	
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="fa2b2ddc-76b8-486a-bcca-bb2d8571d8ee" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import * from dw::core::Arrays
+output application/json
+
+var db = [
+  {
+    "DESCRIPTION": "The migration of 'expressioncomponent' is not supported.",
+    "ID": 1,
+    "TIME": 3.0
+  },
+  {
+    "DESCRIPTION": "The MEL expression could not be migrated to a DataWeave expression.",
+    "ID": 2,
+    "TIME": 2.0
+  }
+]
+
+var file = [
+  {
+    "issue": "Errors",
+    "issueNum": null
+  },
+  {
+    "issue": "cachescope.xml",
+    "issueNum": "4"
+  },
+  {
+    "issue": "Validations always raise an error when the condition is not met.",
+    "issueNum": "1"
+  },
+  {
+    "issue": "The migration of 'expressioncomponent' is not supported.",
+    "issueNum": "3"
+  },
+  {
+    "issue": "Warnings",
+    "issueNum": null
+  },
+  {
+    "issue": "cachescope.xml",
+    "issueNum": "10"
+  },
+  {
+    "issue": "The MEL expression could not be migrated to a DataWeave expression.",
+    "issueNum": "2"
+  },
+  {
+    "issue": "Instead of using outbound properties in the flow move the expression that sets the property into the XML attribute (such as 'method') of the operation or listener that accepts the expression.",
+    "issueNum": "2"
+  },
+  {
+    "issue": "Avoid using an outbound property to determine the status code.",
+    "issueNum": "2"
+  },
+  {
+    "issue": "Threading profiles do not exist in Mule 4. You can replace them with a 'maxConcurrency' value in the flow.",
+    "issueNum": "1"
+  },
+  {
+    "issue": "You can remove this if this flow is not using 'sessionVariables' or after migrating them to variables.",
+    "issueNum": "1"
+  },
+  {
+    "issue": "Expressions that query 'inboundProperties' from the message should instead query the message 'attributes'. Remove this component if there are no uses of 'inboundProperties' in expressions or components that rely on 'inboundProperties' (such as 'copyproperties').",
+    "issueNum": "2"
+  },
+  {
+    "issue": "Info",
+    "issueNum": null
+  },
+  {
+    "issue": "No info entries found during migration.",
+    "issueNum": null
+  }
+]
+
+var  dbList = db.DESCRIPTION
+---
+file map ((item, index) -> {
+	issue: if ((! (dbList contains item)) and (item.issue != "Errors") and (item.issue != "Warnings") and (item.issue != "Info") and not (item.issue contains ".xml") ) item.issue else null,
+	time:  0.0
+	
+}) filter $.issue != null
+
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<flow name="main-read-new-summary-report-flow" doc:id="4974b0ee-e856-484c-a78b-86d350d308bd">
+		<file:listener doc:name="On New or Updated File" doc:id="9e03bc68-8eef-4e5f-af1c-5ebb3447f3ed" config-ref="File_Config_Read_Report" directory="${file.source}" watermarkMode="CREATED_TIMESTAMP">
+			<scheduling-strategy>
+				<fixed-frequency />
+			</scheduling-strategy>
+			<file:matcher filenamePattern="pom.xml" />
+		</file:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="2e4960bf-366a-4fad-9eae-293dd6e3d999" message='#["Start main-read-new-summary-report-flow Flow"]' />
+		<set-variable value='#[%dw 2.0
+output application/java
+fun file(path) = path splitBy("\\")
+---
+file(message.attributes.path)[3] ++ "-summary.html"]' doc:name="rename file [newFilename]" doc:id="f08e0d1d-5203-44cd-8442-bb859a12d5f8" variableName="newFilename" />
+		<set-variable value="#[%dw 2.0
+output application/java
+fun file(path) = path splitBy(&quot;\\&quot;)
+---
+p('file.root') ++ &quot;\\&quot; ++ p('file.source') ++&quot;\\&quot; ++ file(message.attributes.path)[3] ++ &quot;\\report\\summary.html&quot;]" doc:name="set root Path to copy" doc:id="940a1605-939d-4482-a8f1-e8aa5fca4e62" variableName="rootPath" />
+		<logger level="INFO" doc:name="Logger" doc:id="921dcec7-9a9f-46c3-b7ac-c99edc34dd31" message='#["Copy from " ++ vars.rootPath]' />
+		<file:copy doc:name="Copy summary report" doc:id="c4164d73-6dd8-4193-8f0f-51459e160b50" config-ref="File_Config_Read_Report" sourcePath="#[vars.rootPath]" targetPath="#[p('file.destination')]" createParentDirectories="false" overwrite="true" renameTo="#[vars.newFilename]" />
+		<logger level="INFO" doc:name="Logger" doc:id="b11a53d8-b79b-4dcc-b6e6-1804f037af9a" message="main-read-new-summary-report-flow process completed" />
+	</flow>
+	<!-- flow name="use-sftp-connector-to-customize-report-flow" doc:id="c7c300b0-ee0c-4547-bd61-d6c7743c0645">
+		<sftp:listener doc:name="On New or Updated File" doc:id="e3c4f175-0847-4f47-ab07-6faaaa767248" config-ref="SFTP_Config" directory="InputFiles" watermarkEnabled="true" timeBetweenSizeCheck="5" timeBetweenSizeCheckUnit="NANOSECONDS" moveToDirectory="FileArchive">
+			<scheduling-strategy >
+				<fixed-frequency />
+			</scheduling-strategy>
+			<sftp:matcher filenamePattern="*.html" />
+		</sftp:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="106117f5-472d-4da6-af9d-c506f03b5203" message="Start use-sftp-connector-to-customize-report-flow"/>
+		<set-variable value="#[p('sftp.root') ++ &quot;\\&quot; ++ p ('sftp.source') ++ &quot;\\&quot; ++ message.attributes.fileName as String]" doc:name="filePath" doc:id="bfbbe9eb-57ac-4a15-b4b2-6ef6405b7178" variableName="filePath"/>
+		<set-variable value="#[message.attributes.fileName]" doc:name="filename" doc:id="60500b9b-209b-489d-9f08-6bf9f461b34c" variableName="filename"/>
+		<flow-ref doc:name="Flow Reference" doc:id="1a683bc6-0ed0-4996-8a8d-2259c1bf34a5" name="customize-mma-report-flow" />
+	</flow-->
+	<flow name="use-file-connector-to-customize-report-flow" doc:id="4d914ba8-df14-4836-a83b-5315eb462a3c">
+		<file:listener doc:name="On New or Updated File" doc:id="eb30974a-1ab4-47c5-b110-c46e09ae46c0" config-ref="File_Config_Read_Report" directory="${file.destination}" watermarkMode="CREATED_TIMESTAMP" timeBetweenSizeCheck="5" timeBetweenSizeCheckUnit="MILLISECONDS" moveToDirectory="${file.archive}">
+			<scheduling-strategy>
+				<fixed-frequency frequency="5"/>
+			</scheduling-strategy>
+			<file:matcher filenamePattern="*.html" />
+		</file:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="c2cdc1df-121c-47ca-943b-a4a1c008cb31" message="Start use-file-connector-to-customize-report-flow"/>
+		<set-variable doc:name="get summary file path" doc:id="e8c6695f-9224-4abb-8c4b-798d4dfb00df" variableName="filePath" value="#[message.attributes.path]" />
+		<set-variable value="#[message.attributes.fileName]" doc:name="get filename" doc:id="d42dec74-9688-4454-964c-8fad41fc2d85" variableName="filename" />
+		<flow-ref doc:name="GET Issues from Summary.html and add new issus to db" doc:id="2392dc08-9fc0-4fa8-9bb3-4bd71e3a15b2" name="new-list-error-and-completion-time-flow" />
+		<flow-ref doc:name="Estimate time &amp; cost" doc:id="a7f9bd0d-e144-4f66-84e4-0074cc5071d5" name="new-create-custom-report-flow" />
+		<ee:transform doc:name="Remove 0" doc:id="166ba9af-4e45-4880-a3ad-a39724e356ea">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+
+//fun replaceValue(String issue, String value) = 
+	
+---
+[{
+	"issue": "Description",
+	"issueNum": "Total issue",
+	"time": "Est. Time"
+}] ++
+payload map ((object, index) -> {
+	"issue": object.issue,
+	"issueNum": object.issueNum,
+	"time": ((object.time) replace 0.0 with "")
+})
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="HTML Table format" doc:id="9563dc4d-4496-4f3f-952d-891b7a5dd9a5">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+---
+
+
+"table id=\"report-issue\" width: 100%;":{(
+
+	payload map (object, index) -> "tr class=\"tr-border\"" : {
+		"td class=\"td-col1\"" : object.issue,
+		"td class=\"td-col2\"" : object.issueNum,
+		"td class=\"td-col3\"" : object.time 
+	}
+)}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<parse-template doc:name="Parse Template" doc:id="c83c3ac6-9b88-43a2-b6f2-3c0b688452f4" location="C:\Users\aayas\Desktop\records\reportTemplate_new.html" />
+		<file:write doc:name="Write" doc:id="d5e3cdca-1678-4aed-aac5-05e0cfab1ec9" config-ref="File_Config_Local_Path" path='#[vars.filename replace "summary.html" with "custom-summary.html"]' />
+		<logger level="INFO" doc:name="End Flow" doc:id="08e1c8f5-6cc6-41a5-9bb7-59d7cf833426" message="new-get-time-to-complete-flow completed" />
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="ef66bb90-d294-43e1-9881-ed5a157f49ce" type="FILE:FILE_ALREADY_EXISTS">
+				<logger level="INFO" doc:name="Logger" doc:id="2d4e0575-37f4-4fba-b6ce-1b99dd4c2763" message="Failed to create custom report " />
+			</on-error-continue>
+		</error-handler>
+	</flow>
+	<flow name="new-create-custom-report-flow" doc:id="5311b3d6-7ccc-44b7-b1b2-6aa65ccf5e17">
+		<logger level="INFO" doc:name="Start Flow" doc:id="b76488a5-582b-4799-9ab7-2b2d69ffe58a" message="Start new-get-time-to-complete-flow" />
+		<set-variable value="#[%dw 2.0
+output application/json
+
+---
+sum(payload..time)]" doc:name="totalTime" doc:id="f9f81462-95c9-4561-8a00-7fac1f29fb29" variableName="totalTime" />
+		<set-variable value="#[output application/java
+import java!com::jsoupdemo::ReadReport
+--- 
+ReadReport::errorByCategory(vars.filePath)]" doc:name="totalErrorCount" doc:id="bfbc1db8-831b-46bb-b3b5-713471fd3897" variableName="totalErrorCount" />
+		<ee:transform doc:name="set Estimation Values" doc:id="b86384fe-2f5e-48df-9c56-9ee58f89f3c6">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="estimates"><![CDATA[%dw 2.0
+output application/json
+---
+{
+	migrationComplexity: if (vars.totalErrorCount[0] as Number < 5) "simple"
+						else if ( vars.totalErrorCount[0] as Number > 15) "complex"
+						else "medium",
+	timespan: vars.totalTime,
+	cost: (vars.totalTime as Number *8)
+						
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+	</flow>
+	<flow name="new-list-error-and-completion-time-flow" doc:id="0fceca58-5452-4414-9bab-e78dbae4ad95">
+		<set-variable value="#[%dw 2.0
+output application/java
+import java!com::jsoupdemo::ReadReport
+---
+ReadReport::getErrorList_new_ByType(vars.filePath)]" doc:name="errorList" doc:id="813283a6-1464-476b-9a29-ac06049bb897" variableName="errorList" />
+		<ee:transform doc:name="Edit the errors" doc:id="4ee39f26-be46-4a8b-bb7e-333a889d982d">
+			<ee:message />
+			<ee:variables>
+				<ee:set-variable variableName="errorList"><![CDATA[%dw 2.0
+output application/json
+---
+vars.errorList map {
+    issue: ($ splitBy  ":")[0],
+    issueNum: ($ splitBy  ":")[1]
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<db:select doc:name="Select" doc:id="ba981f18-e10b-4698-b7a9-21812870780f" config-ref="Database_Config">
+			<db:sql><![CDATA[SELECT *
+FROM errors]]></db:sql>
+		</db:select>
+		<logger level="INFO" doc:name="Logger" doc:id="6c6d8a54-d595-4411-bd07-91057727914a" message="#[payload]" />
+		<ee:transform doc:name="JAVA to JSON" doc:id="ad5d1bd4-5561-4741-a418-a9f7ec3fe255">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="e4311b44-9da7-4857-ab1a-f753aab656ed">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+import * from dw::core::Arrays
+output application/json
+
+var  dbList = payload.DESCRIPTION
+
+
+// function to get the index number
+fun indexValue(errorDescription) = if (dbList contains errorDescription) payload.TIME[indexOf(dbList,errorDescription) ] else 0.0
+
+---
+
+vars.errorList map ((object, index) -> {
+	issue: object.issue,
+	issueNum: object.issueNum  default "",
+	time: indexValue(object.issue) default 0.0	
+})]]></ee:set-payload>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="missingList"><![CDATA[%dw 2.0
+import * from dw::core::Arrays
+output application/json
+
+var  dbList = payload.DESCRIPTION
+
+---
+
+vars.errorList map ((item, index) -> {
+	issue: if ((! (dbList contains item.issue)) and (item.issue != "Errors") and (item.issue != "Warnings") and (item.issue != "Info") and not (item.issue contains ".xml") ) item.issue else null,
+	time:  0.0
+	
+}) filter $.issue != null]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="fa60e423-446e-4680-9c09-fe8c3844f9e3" >
+			<when expression="#[not (isEmpty(vars.missingList))]">
+				<try doc:name="Try" doc:id="cc16991a-b05f-4f38-8f2c-dff5cc705d72">
+				<db:bulk-insert doc:name="Bulk insert" doc:id="301ea2f8-d8ac-4da2-8064-1bce7380092a" config-ref="Database_Config">
+					<db:bulk-input-parameters><![CDATA[#[vars.missingList]]]></db:bulk-input-parameters>
+					<db:sql><![CDATA[INSERT INTO `muledb`.`errors` (`DESCRIPTION`, `TIME`) VALUES (:issue, :time);
+]]></db:sql>
+				</db:bulk-insert>
+				<error-handler>
+					<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="a5b1198b-0a55-4cf4-b1bc-1af3dcf4fde9" type="DB:BAD_SQL_SYNTAX, DB:CONNECTIVITY, DB:QUERY_EXECUTION, DB:RETRY_EXHAUSTED">
+						<logger level="INFO" doc:name="Logger" doc:id="c8e0cdc7-7613-462d-9db6-97fd8e94655f" message="Failed to perform bulk insert" />
+					</on-error-propagate>
+				</error-handler>
+			</try>
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger" doc:id="183a808f-2d2e-480d-944d-4406b6d207ef" message='#["No new issues added to the db"]'/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Logger" doc:id="57f81e73-4d7a-4226-b7c9-1bb288b38516" message="#[vars.missingValue]" />
+	</flow>
+	<!-- flow name="customize-mma-report-flow" doc:id="96552a5f-69e4-492c-a1bb-dcabf5964e5f">
+		<logger level="INFO" doc:name="Start the flow" doc:id="8ec75bf8-f969-4194-b6f4-ec183b00bc26" message="Start reading the new summary.html file" />
+		<set-variable value="#[output application/java
+import java!com::jsoupdemo::ReadReport
+-&#45;&#45; 
+ReadReport::errorNumber(vars.filePath,p('localpath.target'), p('app.location'))]" doc:name="totalErrorCount" doc:id="1a8df6c5-6f11-4af0-9a97-e14edf5dc19a" variableName="totalErrorCount" />
+		<flow-ref doc:name="Flow Reference" doc:id="bd1a8aee-7292-49f1-81bc-9525e2860daa" name="get-total-timetaken-flow" />
+		<ee:transform doc:name="set payload" doc:id="16d79af5-2c38-443e-9736-31f0f2e09661">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+-&#45;&#45;
+{
+	migrationComplexity: if (vars.totalErrorCount[0] as Number < 5) "simple"
+						else if ( vars.totalErrorCount[0] as Number > 15) "complex"
+						else "medium",
+	timespan: vars.totalTime,
+	cost: (vars.totalTime as Number *8)
+						
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="data" ><![CDATA[%dw 2.0
+output application/json
+-&#45;&#45;
+{
+	migrationComplexity: if (vars.totalErrorCount[0] as Number < 5) "simple"
+						else if ( vars.totalErrorCount[0] as Number > 15) "complex"
+						else "medium",
+	timespan: vars.totalTime,
+	cost: (vars.totalTime as Number *8)
+						
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="dc7b7f4f-70c0-4a86-8868-d638aff31fe9" message="Add the values in the template" />
+		<set-variable value='#[vars.templatePath default "C:\\Users\\aayas\\Desktop\\records\\c-reportTemplate.html"]' doc:name="newtempPath" doc:id="97f2d2b8-0e3d-4157-a122-7e1ee9a2bf40" variableName="newtempPath"/>
+		<parse-template doc:name="Custom Report Template" doc:id="6ca8a795-3f5d-4739-bdb9-cd85a4180208" location="${app.location}">
+		</parse-template>
+		<file:write doc:name="Write" doc:id="361948dc-7404-4ee0-a2ab-8434ef6ec12e" config-ref="File_Config_Local_Path" path='#[vars.filename replace "summary.html" with "custom-summary.html"]' />
+		<logger level="INFO" doc:name="End of Flow" doc:id="66cd6b0a-463a-44f7-915d-03828980a048" message="customize-mma-report-from-ftp-server-flow completed" />
+	</flow -->
+	<!-- flow name="get-total-timetaken-flow" doc:id="b07bed68-b2bc-4be2-a501-f2a896f40005" >
+		<logger level="INFO" doc:name="Start Flow" doc:id="5eccc9a3-591b-4367-9230-d1b69f8c0fa9" message="Start get-total-timetaken-flow"/>
+		<file:read doc:name="Read" doc:id="5e1aad9b-256c-41df-b229-1241ed3e3c63" config-ref="File_Config_Local_Path" path="#[p('localpath.readFile')]"/>
+		<ee:transform doc:name="JAVA to JSON" doc:id="ac512e89-7119-49f7-9156-2ef0d735b270" >
+			<ee:message >
+				<ee:set-payload ><![CDATA<![CDATA<![CDATA<![CDATA[%dw 2.0
+output application/json
+-&#45;&#45;
+payload]]>ee:message>
+			<ee:variables >
+			</ee:variables>
+		</ee:transform>
+		<set-variable va<set-variable va<set-variable va<set-variable value='#[%dw 2.0
+output application/java
+import java!com::jsoupdemo::ReadReport
+-&#45;&#45;
+ReadReport::getErrorList(vars.filePath)]' doc:name="errorList" doc:id="da860c77-f3c9-4201-bb4e-c7bc6986b608" variableName="errorList"/> doc:id="e5ac8cf2-1b83-4094-8358-adb6babaa1d9" variableName="totalTime"/>
+		<logger level="INFO" doc:name="Logger" doc:id="b60f4b9c-c942-4778-a886-0c07fe48468f" message="Start for-each loop"/>
+		<foreach doc:name="For Each" doc:id="e9a5e911-7bff-4437-a6b3-edcf63a573ff">
+			<ee:transform doc:name="Compare Errors" doc:id="8860be64-ea18-4cb6-a487-132ae8ca55ed" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output<![CDATA[%dw 2.0
+output<![CDATA[%dw 2.0
+output<![CDATA[%dw 2.0
+output application/java
+-&#45;&#45;
+{
+	issue: payload.Issue,
+	tt: payload.Time,
+	time: (if (vars.errorList contains payload.Issue) payload.Time  else 0)
+} 
+]]>le value="#[vars.totalTime as Number + payload.time as Number]" doc:name="totalTime" doc:id="2eda74e6-77d0-47d6-af3b-9cfbdb180b14" variableName="totalTime"/>
+		</foreach>
+		<logger level="INFO" doc:name="End Flow" doc:id="4eea3d61-b6c9-4d8e-adb5-e17a9f44a131" message="get-total-timetaken-flow completed"/>
+	</flow> -->
+</mule>

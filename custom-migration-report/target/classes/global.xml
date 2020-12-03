@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	
+	<file:config name="File_Config_Read_Report" doc:name="File Config" doc:id="405a9a55-e539-46f5-93bb-6dbb744008bf" >
+		<file:connection workingDir="${file.root}" />
+	</file:config>
+	<file:config name="File_Config_Local_Path" doc:name="File Config" doc:id="f25bbc30-04db-4dcb-8cc9-2bfcf162a7eb" >
+		<file:connection workingDir="${localpath.root}" />
+	</file:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="e4df70b6-1994-4c8a-9b1d-886b8941a84b" file="config.yaml" />
+	<sftp:config name="SFTP_Config" doc:name="SFTP Config" doc:id="e4ce5a6f-7e68-41fe-89c5-ada653fa9836" >
+		<sftp:connection host="${sftp.host}" port="${sftp.port}" username="${sftp.user}" password="${sftp.password}" />
+	</sftp:config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="0a30ab41-fe9e-47ec-8740-ace34a18e717" >
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="admin" database="muledb" />
+	</db:config>
+	
+	
+</mule>
